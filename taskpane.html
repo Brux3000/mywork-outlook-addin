@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Console Logger Functions</title>
+    <!-- Office JavaScript API -->
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+    <script type="text/javascript">
+        // Assicurarsi che Office sia pronto prima di eseguire qualsiasi operazione
+        Office.initialize = function (reason) {
+            // L'inizializzazione è completata
+        };
+      
+        // Funzione che viene chiamata quando si fa clic sul pulsante
+        function logMessages() {
+            try {
+                // Log messaggio di inizio
+                console.log("start Add-in");
+                window.console.log("start Add-in"); // Aggiungi anche questo per sicurezza
+                
+                // Simuliamo un'operazione che richiede tempo
+                setTimeout(function() {
+                    try {
+                        // Log messaggio di fine
+                        console.log("stop Add-in");
+                        window.console.log("stop Add-in"); // Aggiungi anche questo per sicurezza
+                    } catch (error) {
+                        alert("Errore nel timeout: " + error.message);
+                    }
+                }, 1000); // 1 secondo di ritardo
+            } catch (error) {
+                alert("Errore in logMessages: " + error.message);
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- Il file di funzioni non necessita di UI -->
+    <p>Funzioni per l'add-in Console Logger</p>
+</body>
+</html>
