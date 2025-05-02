@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>MyWork</title>
+  <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+
+  <script type="text/javascript">
+    Office.initialize = function () {
+      Office.actions.associate("copySubject", copySubject);
+    };
+
+    function copySubject(event) {
+      try {
+        Office.context.mailbox.item.subject.getAsync(function (asyncResult) {
+          if (asyncResult.status === Office.AsyncResultStatus.Succeeded) {
+            const subject = asyncResult.value;
+            copyToClipboard(subject);
+            showMessage("Oggetto copiato negli appunti: " + subject);
+          } else {
+            showMessage("Errore nel recupero dell'oggetto.");
+          }
+
+          // ✅ Dichiara la fine dell'azione asincrona
+          event.completed();
+        });
+      } catch (error) {
+        showMessage("Errore imprevisto: " + error.message);
+        event.completed();
+      }
+    }
+
+    function copyToClipboard(text) {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.left = "0";
+      textArea.style.top = "0";
+      textArea.style.opacity = "0";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+    }
+
+    function showMessage(message) {
+      const msgDiv = document.getElementById("messaggio");
+      msgDiv.textContent = message;
+      msgDiv.style.display = "block";
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    .messaggio {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #e6f7ff;
+      border: 1px solid #91d5ff;
+      border-radius: 4px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>MyWork: Copia Oggetto Email</h2>
+    <p>Questo componente aggiuntivo copia l'oggetto della mail negli appunti.</p>
+    <div id="messaggio" class="messaggio"></div>
+  </div>
+</body>
+</html>
+
