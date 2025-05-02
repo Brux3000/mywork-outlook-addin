@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Console Logger Functions</title>
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+    <script type="text/javascript">
+        Office.onReady(function() {
+            // Office è pronto
+        });
+      
+        function logMessages() {
+            // Log messaggio di inizio
+            console.log("start Add-in");
+            
+            // Simuliamo un'operazione che richiede tempo
+            setTimeout(function() {
+                // Log messaggio di fine
+                console.log("stop Add-in");
+            }, 1000); // 1 secondo di ritardo
+        }
+    </script>
+</head>
+<body>
+    <!-- Il file di funzioni non necessita di UI -->
+</body>
+</html>
